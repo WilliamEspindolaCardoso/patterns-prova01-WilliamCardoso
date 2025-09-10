@@ -8,3 +8,5 @@ Criacionais:
 - Abstract Factory
 - Builder
 - Singleton
+
+- William Espindola Cardoso
