@@ -1,38 +1,34 @@
-class Button {
-  render() {}
-}
-
-class WindowUI {
-  render() {}
-}
-
-class LightButton extends Button {
+class LightButton {
   render() {
     return "Botão branco criado";
   }
 }
 
-class LightWindow extends WindowUI {
+class LightWindow {
   render() {
     return "Janela clara aberta";
   }
 }
 
-class DarkButton extends Button {
+class DarkButton {
   render() {
     return "Botão preto criado";
   }
 }
 
-class DarkWindow extends WindowUI {
+class DarkWindow {
   render() {
     return "Janela escura aberta";
   }
 }
 
 class ThemeFactory {
-  createButton() {}
-  createWindow() {}
+  createButton() {
+    throw new Error("Método abstrato deve ser implementado");
+  }
+  createWindow() {
+    throw new Error("Método abstrato deve ser implementado");
+  }
 }
 
 class LightThemeFactory extends ThemeFactory {
@@ -53,16 +49,35 @@ class DarkThemeFactory extends ThemeFactory {
   }
 }
 
-function main(factory) {
-  const button = factory.createButton();
-  const windowUI = factory.createWindow();
+// Cliente
+const factories = {
+  dark: new DarkThemeFactory(),
+  light: new LightThemeFactory(),
+};
 
-  console.log(button.render());
-  console.log(windowUI.render());
+class Components {
+  constructor(factory) {
+    this.button = factory.createButton();
+    this.window = factory.createWindow();
+  }
+
+  createComponent() {
+    console.log(this.button.render());
+    console.log(this.window.render());
+  }
 }
 
-console.log("### Tema Light ###");
-main(new LightThemeFactory());
+function main() {
+  const types = ["dark", "light"];
 
-console.log("### Tema Dark ###");
-main(new DarkThemeFactory());
+  types.forEach((type) => {
+    console.log(`\n>> Fábrica selecionada: ${type} <<`);
+    const factory = factories[type];
+    if (!factory) throw new Error("Tipo de fábrica desconhecido");
+
+    const components = new Components(factory);
+    components.createComponent();
+  });
+}
+
+main();
