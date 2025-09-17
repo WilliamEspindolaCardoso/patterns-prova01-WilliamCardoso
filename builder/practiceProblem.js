@@ -28,6 +28,7 @@
 // car2.showDetails();
 
 
+
 class Car {
   constructor() {
     this.brand = null;

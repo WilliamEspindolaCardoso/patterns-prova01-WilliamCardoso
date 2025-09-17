@@ -1,1 +1,1 @@
-console.log("Teste de funcionamento");
+console.log("Hello, Word!");
